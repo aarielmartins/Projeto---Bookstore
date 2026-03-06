@@ -2,14 +2,13 @@ import pytest
 from product.models import Category
 from product.serializers.category_serializer import CategorySerializer
 
-
 @pytest.mark.django_db
 def test_category_serialization():
     category = Category.objects.create(
         title="Tecnologia",
         slug="tecnologia",
         description="Categoria de tecnologia",
-        active=True,
+        active=True
     )
 
     serializer = CategorySerializer(category)
@@ -17,5 +16,5 @@ def test_category_serialization():
         "title": "Tecnologia",
         "slug": "tecnologia",
         "description": "Categoria de tecnologia",
-        "active": True,
+        "active": True
     }

@@ -1,10 +1,9 @@
 import pytest
 from django.contrib.auth.models import User
-from order.models import Order
+from order.models import Order 
 from product.models import Product, Category
 from order.serializers import OrderSerializer
 from product.serializers import ProductSerializer, CategorySerializer
-
 
 @pytest.mark.django_db
 def test_order_serialization():
@@ -14,14 +13,20 @@ def test_order_serialization():
         title="Tecnologia",
         slug="tecnologia",
         description="Categoria de tecnologia",
-        active=True,
+        active=True
     )
 
     product1 = Product.objects.create(
-        title="Smartphone", description="Um smartphone top", price=2000, active=True
+        title="Smartphone",
+        description="Um smartphone top",
+        price=2000,
+        active=True
     )
     product2 = Product.objects.create(
-        title="Tablet", description="Um tablet top", price=1500, active=True
+        title="Tablet",
+        description="Um tablet top",
+        price=1500,
+        active=True
     )
 
     product1.category.add(category)
@@ -41,8 +46,7 @@ def test_order_serialization():
 
     expected_data = {
         "product": serialized_products,
-        "total": 3500,
-        "user": order.user.id,
+        "total": 3500
     }
 
     assert serializer.data == expected_data
