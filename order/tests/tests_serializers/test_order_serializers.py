@@ -46,7 +46,8 @@ def test_order_serialization():
 
     expected_data = {
         "product": serialized_products,
-        "total": 3500
+        "total": 3500,
+        "user": order.user.id
     }
 
     assert serializer.data == expected_data
