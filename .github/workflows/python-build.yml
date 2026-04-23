@@ -1,14 +1,12 @@
 name: Python application
-
 on: [push]
-
 jobs:
   build:
     strategy:
       fail-fast: false
       matrix:
         python: [3.13.2]
-        
+
     runs-on: ubuntu-latest
     services:
       db:
@@ -17,31 +15,31 @@ jobs:
           POSTGRES_USER: bookstore_dev
           POSTGRES_PASSWORD: bookstore_dev
           POSTGRES_DB: bookstore_dev_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
     - name: Checkout code
       uses: actions/checkout@v5
-
     - name: Set up Python ${{ matrix.python }}
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python }}
-
     - name: Install Poetry
       run: |
         python -m ensurepip
         python -m pip install --upgrade pip
         python -m pip install --upgrade poetry
-        
-
     - name: Install dependencies
       run: poetry install
-
     - name: Load env file
       run: |
         cat env.dev >> $GITHUB_ENV
-
     - name: Run migrations
       run: poetry run python manage.py migrate
-
     - name: Run test
       run: poetry run python manage.py test
