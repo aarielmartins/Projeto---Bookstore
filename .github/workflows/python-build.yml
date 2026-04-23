@@ -1,0 +1,43 @@
+name: Python application
+
+on: [push]
+
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        python: [3.13.2]
+        
+    runs-on: ubuntu-latest
+    services:
+      db:
+        image: postgres:17
+        env:
+          POSTGRES_USER: bookstore_dev
+          POSTGRES_PASSWORD: bookstore_dev
+          POSTGRES_DB: bookstore_dev_db
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v5
+
+    - name: Set up Python ${{ matrix.python }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python }}
+
+    - name: Install Poetry
+      run: |
+        python -m ensurepip
+        python -m pip install --upgrade pip
+        python -m pip install --upgrade poetry
+        
+
+    - name: Install dependencies
+      run: poetry install
+
+    - name: Run migrations
+      run: poetry run python manage.py migrate
+
+    - name: Run test
+      run: poetry run python manage.py test
