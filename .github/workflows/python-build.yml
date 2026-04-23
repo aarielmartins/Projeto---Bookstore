@@ -36,6 +36,10 @@ jobs:
     - name: Install dependencies
       run: poetry install
 
+    - name: Load env file
+      run: |
+      cat env.dev >> $GITHUB_ENV
+
     - name: Run migrations
       run: poetry run python manage.py migrate
 
