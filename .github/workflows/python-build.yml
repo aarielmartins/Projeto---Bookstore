@@ -40,6 +40,7 @@ jobs:
       run: |
       cat env.dev >> $GITHUB_ENV
 
+      
     - name: Run migrations
       run: poetry run python manage.py migrate
 
