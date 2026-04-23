@@ -39,5 +39,5 @@ jobs:
     - name: Run migrations
       run: poetry run python manage.py migrate
 
-    - name: Run test
+    - name: Run test 
       run: poetry run python manage.py test
