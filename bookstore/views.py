@@ -19,3 +19,6 @@ def update(request):
             return HttpResponse(f"Error: {str(e)}", status=500)
     else:
         return HttpResponse("Method not allowed", status=405)
+
+def hello_world(request):
+    return HttpResponse("Hello, World!")
