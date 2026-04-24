@@ -153,7 +153,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-vl(=a+f_ovnf0avpgo&#^
 
 DEBUG = int(os.environ.get("DEBUG", default=1))
 
-ALLOWED_HOSTS = ["localhost 127.0.0.1", "ebac-bookstore-api-ariel-bc437e329197.herokuapp.com"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1", "aarielmartins.pythonanywhere.com"]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
